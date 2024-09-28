@@ -1,7 +1,6 @@
+N = list(map(int, input().split()))
+sum_v = 0
+for i in N:
+    sum_v += i * i
 
-user_input = list(map(int, input().split()))
-answer = 0
-for i in user_input:
-    answer += i*i
- 
-print(answer % 10)
+print(sum_v % 10)
