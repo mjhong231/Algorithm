@@ -1,30 +1,38 @@
-import sys
-sys.setrecursionlimit(100000)
-n, m = map(int, sys.stdin.readline().split())
-parents = [0] * (n+1)
 
-for i in range(1, n+1):
-    parents[i] = i # 자기 자신을 부모로 설정
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(100000)
+
+N, M = map(int, input().split()) # 노드의 개수 N / 연산의 개수 M
+parents = [0] * (N+1) # 부모노드를 저장할 리스트
+
+for i in range(1, N+1):
+    parents[i] = i  # 초기세팅(각 노드가 자기 자신을 부모로 가지도록 설정)
 
 def find(a):
-    if parents[a] != a: # 자기 자신이 root 노드가 아닌경우 다시 find 연산 수행하기
-        parents[a] = find(parents[a])
+    # 만약 a가 루트노드가 아니라면
+    if parents[a] != a:
+        parents[a] = find(parents[a]) # 경로압축해서 루트 노드 갱신
     return parents[a]
 
 def union(a, b):
     a = find(a)
     b = find(b)
+    # 값이 작은 루트 노드를 상위 부모로 설정
     if a < b:
-        parents[b] = a # 루트 노드가 값이 작은 것이 상위라고 가정하기
+        parents[b] = a  # b의 부모를 a로 설정
     else:
         parents[a] = b
 
-for _ in range(m):
+
+for _ in range(M):
     op, a, b = map(int, input().split())
-    if op == 0: # 합치기
+
+    if op == 0: # 합치기(union)
         union(a, b)
-    else: # 동일 집합인지 판단
+    
+    else:  # 같은 집합에 속해 있는지 확인(find)
         if find(a) == find(b):
-            print('YES')
+            print('YES')  # 같은 집합에 속함
         else:
-            print('NO')
+            print('NO')  # 다른 집합에 속함
