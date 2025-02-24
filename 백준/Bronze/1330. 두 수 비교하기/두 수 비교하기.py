@@ -1,7 +1,4 @@
-a, b = map(int, input().split())
-if a>b :
-    print('>')
-elif a<b :
-    print('<')
-else :
-    print('==')
+A, B = map(int, input().split())
+if A > B: print(">")
+elif A < B: print("<")
+else: print("==")
